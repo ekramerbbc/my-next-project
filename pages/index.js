@@ -1,14 +1,3 @@
-import { gql, useQuery } from "@apollo/client";
-
-export const ALL_PREPARATION_GUIDES_QUERY = gql`
-  query allPreparationGuides {
-    allPreparationGuide {
-      _id
-      name
-    }
-  }
-`;
-
 function Home({ allPreparationGuides }) {
   return (
     <div>
