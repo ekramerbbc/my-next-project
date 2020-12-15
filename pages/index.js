@@ -9,15 +9,7 @@ export const ALL_PREPARATION_GUIDES_QUERY = gql`
   }
 `;
 
-function Home() {
-  const { loading, error, data } = useQuery(ALL_PREPARATION_GUIDES_QUERY);
-
-  if (loading) return <>Loading...</>
-
-  if (error) return <>`Error! ${error.message}`</>
-
-  const { allPreparationGuide: allPreparationGuides } = data;
-
+function Home({ allPreparationGuides }) {
   return (
     <div>
       {allPreparationGuides.map(preparationGuide => {
@@ -29,6 +21,22 @@ function Home() {
       })}
     </div>
   )
+}
+
+export async function getStaticProps({ params }) {
+  const { loading, error, data } = useQuery(ALL_PREPARATION_GUIDES_QUERY);
+
+  if (loading) return <>Loading...</>
+
+  if (error) return <>`Error! ${error.message}`</>
+
+  const { allPreparationGuide: allPreparationGuides } = data;
+
+  return {
+    props: {
+      allPreparationGuides
+    }
+  }
 }
 
 export default Home
