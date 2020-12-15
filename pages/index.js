@@ -24,17 +24,26 @@ function Home({ allPreparationGuides }) {
 }
 
 export async function getStaticProps({ params }) {
-  const { loading, error, data } = useQuery(ALL_PREPARATION_GUIDES_QUERY);
-
-  if (loading) return <>Loading...</>
-
-  if (error) return <>`Error! ${error.message}`</>
-
-  const { allPreparationGuide: allPreparationGuides } = data;
+  const data = await fetch('https://eo9501mu.apicdn.sanity.io/v1/graphql/production/default', {
+    headers: {
+      "Content-Type": "application/json"
+    },
+    method: 'post',
+    body: JSON.stringify({
+      query: `{
+        allPreparationGuide {
+          _id
+          name
+        }
+      }`
+    })
+  }).then(function(response) {
+    return response.json();
+  })
 
   return {
     props: {
-      allPreparationGuides
+      allPreparationGuides: data.data.allPreparationGuide
     }
   }
 }
