@@ -4,7 +4,7 @@ function Home({ allPreparationGuides }) {
       {allPreparationGuides.map(preparationGuide => {
         return (
           <div>
-            <div>{preparationGuide.name}</div>
+            <div>{preparationGuide.name.en}</div>
           </div>
         )
       })}
@@ -13,16 +13,18 @@ function Home({ allPreparationGuides }) {
 }
 
 export async function getStaticProps({ params }) {
-  const data = await fetch('https://eo9501mu.apicdn.sanity.io/v1/graphql/production/default', {
+  const data = await fetch('https://eo9501mu.api.sanity.io/v1/graphql/production/default', {
     headers: {
-      "Content-Type": "application/json"
+      'Content-Type': 'application/json'
     },
     method: 'post',
     body: JSON.stringify({
       query: `{
         allPreparationGuide {
           _id
-          name
+          name {
+            en
+          }
         }
       }`
     })
