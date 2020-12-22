@@ -5,5 +5,7 @@ This repo was created as a proof of concept to test NextJS as a SSG for Blue Bot
 ## Install dependencies
 `yarn`
 
-## Run Next locally
+## Run locally
 `yarn dev`
+
+visit [localhost:3000](localhost:3000)
