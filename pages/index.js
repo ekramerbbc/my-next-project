@@ -1,14 +1,38 @@
-function Home({ allPreparationGuides }) {
+import Image from 'next/image'
+
+const ALL_PREP_GUIDES_QUERY = `
+  {
+    allPreparationGuide {
+      _id
+      name {
+        en
+        jp
+      }
+      indexImage {
+        asset {
+          url
+        }
+      }
+    }
+  }
+`
+function PreparationGuidesIndex({ allPreparationGuides }) {
   return (
     <div>
-      {allPreparationGuides.map(preparationGuide => {
-        return (
-          <div>
-            <div>{preparationGuide.name.en}</div>
-          </div>
-        )
-      })}
-    </div>
+      <ul>
+        {allPreparationGuides.map(preparationGuide => {
+          return (
+            <li key={preparationGuide.name.en}>
+              <Image
+                layout="fill"
+                src={preparationGuide.indexImage.asset.url}
+              />
+              {preparationGuide.name.en}
+            </li>
+          )
+        })}
+      </ul>
+    </div >
   )
 }
 
@@ -19,16 +43,9 @@ export async function getStaticProps({ params }) {
     },
     method: 'post',
     body: JSON.stringify({
-      query: `{
-        allPreparationGuide {
-          _id
-          name {
-            en
-          }
-        }
-      }`
+      query: ALL_PREP_GUIDES_QUERY
     })
-  }).then(function(response) {
+  }).then(function (response) {
     return response.json();
   })
 
@@ -39,4 +56,4 @@ export async function getStaticProps({ params }) {
   }
 }
 
-export default Home
+export default PreparationGuidesIndex
