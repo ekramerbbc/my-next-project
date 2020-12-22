@@ -1,3 +1,5 @@
+import imageUrlBuilder from '@sanity/image-url'
+import sanityClient from '@sanity/client';
 import Image from 'next/image'
 
 const ALL_PREP_GUIDES_QUERY = `
@@ -16,6 +18,21 @@ const ALL_PREP_GUIDES_QUERY = `
     }
   }
 `
+
+const IMAGE_DIMENSIONS = {
+  height: 500,
+  width: 500
+}
+
+function imageUrl({ source, height, width }) {
+  const client = sanityClient({
+    projectId: 'eo9501mu',
+    dataset: 'production'
+  })
+  const builder = imageUrlBuilder(client)
+  return builder.image(source).height(height).width(width).url()
+}
+
 function PreparationGuidesIndex({ allPreparationGuides }) {
   return (
     <div>
@@ -24,8 +41,15 @@ function PreparationGuidesIndex({ allPreparationGuides }) {
           return (
             <li key={preparationGuide.name.en}>
               <Image
-                layout="fill"
-                src={preparationGuide.indexImage.asset.url}
+                height={IMAGE_DIMENSIONS.height}
+                width={IMAGE_DIMENSIONS.width}
+                src={imageUrl(
+                  {
+                    source: preparationGuide.indexImage,
+                    height: IMAGE_DIMENSIONS.height,
+                    width: IMAGE_DIMENSIONS.width
+                  }
+                )}
               />
               {preparationGuide.name.en}
             </li>
