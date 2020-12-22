@@ -1,7 +1,10 @@
 {
   "name": "my-next-project",
   "version": "1.0.0",
-  "description": "\"My first Next.js project (in a while)\"",
+  "description": "Blue Bottle Next Prep Guides",
+  "engines": {
+    "node": "15.4.0"
+  },
   "main": "index.js",
   "scripts": {
     "dev": "next dev",
