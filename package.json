@@ -17,8 +17,11 @@
   "dependencies": {
     "@sanity/client": "^2.1.0",
     "@sanity/image-url": "^0.140.19",
-    "next": "^10.0.3",
+    "autoprefixer": "^10.1.0",
+    "next": "^10.0.4",
+    "postcss": "^8.2.1",
     "react": "^17.0.1",
-    "react-dom": "^17.0.1"
+    "react-dom": "^17.0.1",
+    "tailwindcss": "^2.0.2"
   }
 }
