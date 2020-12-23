@@ -35,28 +35,32 @@ function imageUrl({ source, height, width }) {
 
 function PreparationGuidesIndex({ allPreparationGuides }) {
   return (
-    <div>
+    <>
       <ul>
         {allPreparationGuides.map(preparationGuide => {
           return (
-            <li key={preparationGuide.name.en}>
-              <Image
-                height={IMAGE_DIMENSIONS.height}
-                width={IMAGE_DIMENSIONS.width}
-                src={imageUrl(
-                  {
-                    source: preparationGuide.indexImage,
-                    height: IMAGE_DIMENSIONS.height,
-                    width: IMAGE_DIMENSIONS.width
-                  }
-                )}
-              />
-              {preparationGuide.name.en}
+            <li className='w-full sm:w-1/3' key={preparationGuide.name.en}>
+              <div className='relative pt-full'>
+                <Image
+                  layout='fill'
+                  objectFit='contain'
+                  src={imageUrl(
+                    {
+                      source: preparationGuide.indexImage,
+                      height: IMAGE_DIMENSIONS.height,
+                      width: IMAGE_DIMENSIONS.width
+                    }
+                  )}
+                />
+                <div className='flex flex-col justify-center items-center absolute top-0 right-0 bottom-0 left-0 bg-black bg-opacity-20 transition duration-500 ease-in-out hover:bg-opacity-30'>
+                  <div className='uppercase text-xl text-white'>{preparationGuide.name.en}</div>
+                </div>
+              </div>
             </li>
           )
         })}
       </ul>
-    </div >
+    </>
   )
 }
 
